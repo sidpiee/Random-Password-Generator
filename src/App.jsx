@@ -4,6 +4,7 @@ export default function App() {
   const [numAllowed, setNumAllowed] = React.useState(false);
   const [charAllowed, setCharAllowed] = React.useState(false);
   const [pass, setPass] = React.useState("");
+  const copyref = React.createRef(null);
 
   React.useEffect(() => {
     let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -27,6 +28,8 @@ export default function App() {
             type="text"
             className="w-full px-3 py-1 bg-white "
             value={pass}
+            readOnly
+            ref={copyref}
           />
           <button className="bg-blue-300 text-black px-3 py-0.5 shrink-0 cursor-pointer">
             copy
@@ -36,21 +39,28 @@ export default function App() {
           <input
             type="range"
             min={8}
-            max={20}
+            max={15}
             name=""
             id="length"
             value={length}
             onChange={(e) => setLength(Number(e.target.value))}
-            readOnly
           />
           <label htmlFor="length">Length : {length}</label>
         </div>
         <div className="flex justify-start w-full gap-3 text-white">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            onChange={() => setNumAllowed((prevNumAllowed) => !prevNumAllowed)}
+          />
           <label htmlFor="Numbers">Numbers</label>
         </div>
         <div className="flex justify-start w-full gap-3 text-white">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            onChange={() =>
+              setCharAllowed((prevCharAllowed) => !prevCharAllowed)
+            }
+          />
           <label htmlFor="Numbers">Special characters</label>
         </div>
       </div>
