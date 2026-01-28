@@ -4,7 +4,7 @@ export default function App() {
   const [numAllowed, setNumAllowed] = React.useState(false);
   const [charAllowed, setCharAllowed] = React.useState(false);
   const [pass, setPass] = React.useState("");
-  const copyref = React.createRef(null);
+  const copyref = React.useRef(null);
 
   React.useEffect(() => {
     let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -17,6 +17,10 @@ export default function App() {
     setPass(newpass);
   }, [length, numAllowed, charAllowed]);
 
+  function copy() {
+    navigator.clipboard.writeText(pass);
+    copyref.current.select();
+  }
   return (
     <div className="flex items-center justify-center w-full h-screen bg-linear-to-br from-blue-950/80 to-violet-950">
       <div className="flex flex-col items-center justify-start w-auto h-40 p-10 border card bg-indigo-950 border-white/50 min-h-64 rounded-2xl">
@@ -31,7 +35,10 @@ export default function App() {
             readOnly
             ref={copyref}
           />
-          <button className="bg-blue-300 text-black px-3 py-0.5 shrink-0 cursor-pointer">
+          <button
+            className="bg-blue-300 text-black px-3 py-0.5 shrink-0 cursor-pointer"
+            onClick={copy}
+          >
             copy
           </button>
         </div>
